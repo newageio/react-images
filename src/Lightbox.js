@@ -89,11 +89,9 @@ class Lightbox extends Component {
 
     // preload current image
     if (this.props.currentImage !== nextProps.currentImage || !this.props.isOpen && nextProps.isOpen) {
-      const img = this.preloadImage(nextProps.currentImage, this.handleImageLoaded);
+      const img = this.preloadImageData(nextProps.images[nextProps.currentImage], this.handleImageLoaded);
 
-      if (img) {
-        this.setState({ imageLoaded: img.complete });
-      }
+      if (img) this.setState({ imageLoaded: img.complete });
     }
 
     // add/remove event listeners
@@ -116,8 +114,10 @@ class Lightbox extends Component {
   // ==============================
 
   preloadImage(idx, onload) {
-    const data = this.props.images[idx];
+    return this.preloadImageData(this.props.images[idx], onload);
+  }
 
+  preloadImageData(data, onload) {
     if (!data) return;
 
     const img = new Image();

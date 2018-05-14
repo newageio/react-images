@@ -1072,11 +1072,9 @@ var Lightbox = function (_Component) {
 
       // preload current image
       if (this.props.currentImage !== nextProps.currentImage || !this.props.isOpen && nextProps.isOpen) {
-        var img = this.preloadImage(nextProps.currentImage, this.handleImageLoaded);
+        var img = this.preloadImageData(nextProps.images[nextProps.currentImage], this.handleImageLoaded);
 
-        if (img) {
-          this.setState({ imageLoaded: img.complete });
-        }
+        if (img) this.setState({ imageLoaded: img.complete });
       }
 
       // add/remove event listeners
@@ -1102,8 +1100,11 @@ var Lightbox = function (_Component) {
   }, {
     key: 'preloadImage',
     value: function preloadImage(idx, onload) {
-      var data = this.props.images[idx];
-
+      return this.preloadImageData(this.props.images[idx], onload);
+    }
+  }, {
+    key: 'preloadImageData',
+    value: function preloadImageData(data, onload) {
       if (!data) return;
 
       var img = new Image();
