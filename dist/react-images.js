@@ -1072,7 +1072,7 @@ var Lightbox = function (_Component) {
 
       // preload current image
       if (this.props.currentImage !== nextProps.currentImage || !this.props.isOpen && nextProps.isOpen) {
-        var img = this.preloadImageData(nextProps.images[nextProps.currentImage], this.handleImageLoaded);
+        var img = this.preloadImage(nextProps.currentImage, this.handleImageLoaded);
 
         if (img) {
           this.setState({ imageLoaded: img.complete });
